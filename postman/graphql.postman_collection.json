@@ -1,0 +1,137 @@
+{
+	"info": {
+		"_postman_id": "9b089e8d-92ce-4e68-a549-d7ad798e7bd7",
+		"name": "graphql",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "saveProduct",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"current-id\", jsonData.data.saveProduct.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation {\r\n  saveProduct(productInput: {\r\n    name: \"{{$randomProductName}}\",\r\n    description: \"random description\",\r\n    price: {{$randomPrice}},\r\n    department: \"{{$randomDepartment}}\",\r\n    isAvailable: {{$randomBoolean}}\r\n  }) {\r\n    id\r\n    name\r\n    description\r\n    price\r\n    department\r\n    isAvailable\r\n    createdAt\r\n    updatedAt\r\n  }\r\n}\r\n",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}",
+					"host": [
+						"{{localhost}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllProducts",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query {\r\n    getAllProducts {\r\n        id\r\n        name\r\n        description\r\n        price\r\n        department\r\n        isAvailable\r\n        createdAt\r\n        updatedAt\r\n    }\r\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}",
+					"host": [
+						"{{localhost}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getProductById",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query {\r\n    getProductById(id: \"{{current-id}}\") {\r\n        id\r\n        name\r\n        description\r\n        price\r\n        department\r\n        isAvailable\r\n        createdAt\r\n        updatedAt\r\n    }\r\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}",
+					"host": [
+						"{{localhost}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateProduct",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation {\r\n  updateProduct(id: \"{{current-id}}\",\r\n  productInput: {\r\n    name: \"{{$randomProductName}}\",\r\n    description: \"random description\",\r\n    price: {{$randomPrice}},\r\n    department: \"{{$randomDepartment}}\",\r\n    isAvailable: {{$randomBoolean}}\r\n  }) {\r\n    id\r\n    name\r\n    description\r\n    price\r\n    department\r\n    isAvailable\r\n    createdAt\r\n    updatedAt\r\n  }\r\n}\r\n",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}",
+					"host": [
+						"{{localhost}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteProduct",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation {\r\n    deleteProduct(id: \"{{current-id}}\")\r\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}",
+					"host": [
+						"{{localhost}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "current-id",
+			"value": ""
+		}
+	]
+}
